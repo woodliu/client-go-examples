@@ -1,25 +1,29 @@
 # Kubernetes client-go examples
 
-A collection of mini-programs covering various [client-go](https://github.com/kubernetes/client-go) use cases inspired by [client-go/examples](https://github.com/kubernetes/client-go/tree/master/examples).
-The intention (at least so far) is to test (more or less) fresh version of Go and packages against a few latest
-Kubernetes versions.
+```diff
+! Support development of this project > patreon.com/iximiuz
+```
 
-What tested at the moment:
+A collection of mini-programs demonstrating various [client-go](https://github.com/kubernetes/client-go) use cases augmented by a [preconfigured online development environment](https://labs.iximiuz.com/playgrounds/k8s-client-go/). Inspired by [client-go/examples](https://github.com/kubernetes/client-go/tree/master/examples).
 
-- `go 1.17`
-- `k8s.io/client-go v0.23.1`
-- `Kubernetes v1.22.3`
+The intention is to test a (more or less) fresh version of Go and `k8s.io` packages against the [currently maintained Kubernetes release branches](https://kubernetes.io/releases/).
+
+What is tested at the moment:
+
+- `go 1.22.3`
+- `k8s.io/client-go 0.27.14 0.28.10 0.29.5 0.30.1` (maintained release branches)
+- `Kubernetes 1.27.13 1.28.9 1.29.4 1.30.0` (best-effort match with versions supported by `kind`)
 
 ## Setup
 
-Most examples expect `minikube` with at least two Kubernetes clusters - `shared1` and `shared2`.
+Most examples expect at least two Kubernetes clusters - `shared1` and `shared2`.
 
 ```bash
 curl -sLS https://get.arkade.dev | sudo sh
-arkade get minikube kubectl
+arkade get kind kubectl
 
-minikube start --profile shared1
-minikube start --profile shared2
+kind create cluster --name shared1
+kind create cluster --name shared2
 ```
 
 ## Run
@@ -28,14 +32,15 @@ Oversimplified (for now):
 
 ```bash
 cd <program>
-go run main.go
+make test
+
+# or from the root folder:
+make test-all
 ```
 
 ## TODO
 
 - Add more assertions to mini-programs
-- Test different Kubernetes versions
-- Setup GitHub action(s)
 - Examples to be covered
   - setting API request timeout
   - configuring API request throttling
